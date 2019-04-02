@@ -5,8 +5,8 @@ module.exports = class Game {
 		this.id = this.generateId(16);
 		this.map = new GameMap(options.map);
 	}
-	randomInt(min, max) {
-		return Math.floor(Math.random() * (max - min) ) + min;
+	randomInt(minimumValue, maximumValue) {
+		return Math.floor(Math.random() * (maximumValue - minimumValue) ) + minimumValue;
 	}
 	generateId(length) {
 		var id = "";
