@@ -1,19 +1,16 @@
 var GameMap = require("./map.js");
+var PlayersList = require("./players_list.js");
+var Utils = require("./utils.js");
 
 module.exports = class Game {
 	constructor(options) {
-		this.id = this.generateId(16);
+		this.id = Utils.randomString(40);
 		this.map = new GameMap(options.map);
+		this.players_count = options.players_count;
+		this.players = new PlayersList();
 	}
-	randomInt(minimumValue, maximumValue) {
-		return Math.floor(Math.random() * (maximumValue - minimumValue) ) + minimumValue;
-	}
-	generateId(length) {
-		var id = "";
-		var characters = "abcdef0123456789";
-		for (var i = 0; i < length; i++)  {
-			id += characters.charAt(this.randomInt(0, characters.length));
-		}
-		return id;
+	newPlayer() {
+		var player = this.players.newPlayer();
+		return player.id;
 	}
 }
