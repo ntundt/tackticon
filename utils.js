@@ -1,3 +1,5 @@
+var Url = require('url');
+
 String.prototype.explode = function(delimiter) {
 	var emptyArray = { 0: '' };
 
@@ -26,8 +28,6 @@ String.prototype.explode = function(delimiter) {
 	return this.toString().split(delimiter.toString());
 }
 
-
-
 module.exports = {
 	randomString: function(length) {
 		var id = "";
@@ -39,5 +39,15 @@ module.exports = {
 	},
 	randomInt: function(minimumValue, maximumValue) {
 		return Math.floor(Math.random() * (maximumValue - minimumValue) ) + minimumValue;
+	},
+	getParameters: function(url) {
+		return Url.parse(url, true).query;
+	},
+	getMethod(url) {
+		return url.substring(url.indexOf("/method/") + "/method/".length, url.indexOf("?"));
+	},
+	getUrlFolders(url) {
+		var addr = new Url.parse(url);
+		return addr.pathname.split("/");
 	}
 }

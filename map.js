@@ -6,11 +6,13 @@ module.exports = class GameMap {
 		if (typeof map == 'string') {
 			this.loadMap(map);
 		} else {
-			
+			this.randomMap();
 		}
 	}
 	loadMap(map) {
-		this.map_object = [];
+		this.terrain = [];
+		this.cities = [];
+		this.units = [];
 
 		var stringifiedMap = fs.readFileSync(map);
 		stringifiedMap = stringifiedMap.explode("\n");
@@ -23,5 +25,11 @@ module.exports = class GameMap {
 	}
 	getNode(x, y) {
 		this.map_object[x][y];
+	}
+	getPreview() {
+
+	}
+	randomMap() {
+		
 	}
 }
