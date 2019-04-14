@@ -1,4 +1,5 @@
 var Url = require('url');
+var fs = require('fs');
 
 String.prototype.explode = function(delimiter) {
 	var emptyArray = { 0: '' };
@@ -49,5 +50,11 @@ module.exports = {
 	getUrlFolders(url) {
 		var addr = new Url.parse(url);
 		return addr.pathname.split("/");
+	},
+	showInterface(response) {
+		response.writeHead(200, {'Content-Type': 'text/html'});
+		fs.readFile('./markup/index.html', (err, data) => {
+			response.end(data);
+		});
 	}
 }

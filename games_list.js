@@ -11,7 +11,7 @@ module.exports = class GamesList {
 		return game;
 	}
 	addGame(game) {
-
+		this.list.push(new Game());
 	}
 	importExistingGames() {
 		var games_files_list = fs.readdirSync("./games/");
@@ -32,7 +32,7 @@ module.exports = class GamesList {
 			}
 		}
 	}
-	toJsonString() {
+	toJson() {
 		var object = [];
 		for (var i = 0; i < this.list.length; i++) {
 			object.push({game_id: this.list[i].id, players: this.list[i].getPlayers()});

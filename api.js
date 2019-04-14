@@ -35,6 +35,9 @@ module.exports = class API {
 		case 'newGame':
 			response = this.gamesList.startNewGame();
 			break;
+		default:
+			errors.push({code: 101, description: "Specified method is undefined"});
+			break;
 		}
 		return this.makeResponseObject(response, errors);
 	}
@@ -60,11 +63,15 @@ module.exports = class API {
 	}
 	checkRequiredParameters(method, parameters) {
 		var req = requirations[method];
-		for (var i = 0; i < req.length; i++) {
-			if (parameters[req[i]] === undefined) {
-				return false;
+		if (req !== undefined) {
+			for (var i = 0; i < req.length; i++) {
+				if (parameters[req[i]] === undefined) {
+					return false;
+				}
 			}
+			return true; 
+		} else {
+			return true;
 		}
-		return true;
 	}
 }

@@ -14,8 +14,11 @@ module.exports = class Game {
 		var player = this.players.newPlayer();
 		return player;
 	}
-	save(callback) {
-		var object = {};
+	saveItself(callback=function(){}) {
+		var filename = this.id + ".sav";
+		var object = {
+			players: this.getPlayers()
+		};
 		callback();
 	}
 	connect(nickname) {
@@ -23,7 +26,7 @@ module.exports = class Game {
 		player.setNickname(nickname);
 		return player;
 	}
-	toJsonString() {
+	toJson() {
 		return JSON.stringify({
 			game_id: this.id,
 			players: this.getPlayers()
@@ -33,7 +36,7 @@ module.exports = class Game {
 		return this.players.getPlayersCount();
 	}
 	getPlayers() {
-		return this.players.toJsonString();
+		return this.players.toJson();
 	}
 	getId() {
 		return this.id;

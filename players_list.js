@@ -15,10 +15,10 @@ module.exports = class PlayersList {
 			if (this.players[i].id == id) return this.players[i];
 		} 
 	}
-	toJsonString() {
+	toJson() {
 		var object = [];
 		for (var i = 0; i < this.players.length; i++) {
-			object.push(this.players[i].toJsonString());
+			object.push(this.players[i].toJson());
 		}
 		return object;
 	}

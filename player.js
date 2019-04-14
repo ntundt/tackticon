@@ -14,7 +14,7 @@ module.exports = class Player {
 	getToken() {
 		return this.token;
 	}
-	toJsonString() {
+	toJson() {
 		return {
 			id: this.id,
 			nick: this.nickname
