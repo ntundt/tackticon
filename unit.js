@@ -5,10 +5,13 @@ module.exports = class Unit {
 		this.type = type;
 		this.owner = owner;
 	}
-	setOwner() {
+	setOwner(owner) {
 		this.owner = owner;
 	}
-	attack() {
+	attack(target) {
 
+	}
+	move(x, y) {
+		
 	}
 }

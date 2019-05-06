@@ -7,7 +7,7 @@ var Utils = require("./utils.js");
 module.exports = class Game {
 	constructor(options) {
 		this.id = Utils.randomString(40);
-		// this.map = new GameMap(options.map);
+		this.map = new GameMap(options.mapOptions);
 		this.players = new PlayersList();
 	}
 	newPlayer() {

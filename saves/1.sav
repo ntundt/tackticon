@@ -1,0 +1,64 @@
+{
+	"game": {
+		"name": "Test game #1"
+	},
+	"console": [
+		{
+			"source": 0,
+			"time": 165054978,
+			"message": "Test message"
+		}
+	],
+	"players": [
+		{
+			"id": 1,
+			"nickname": "Sample nickname #1"
+		},
+		{
+			"id": 2,
+			"nickname": "Sample nickname #2"
+		}
+	],
+	"cities": [
+		{
+			"id": 1,
+			"pos": {
+				"x": 1,
+				"y": 1
+			},
+			"owner": 1,
+			"factories": [
+				{
+					"producing": "tank_small",
+					"steps": 3
+				},
+				{
+					"producing": "infantry",
+					"steps": 2
+				}
+			]
+		}
+	],
+	"units": [
+		{
+			"id": 1,
+			"type": "infantry",
+			"health": 3,
+			"owner": 1,
+			"pos": {
+				"x": 1,
+				"y": 1
+			}
+		},
+		{
+			"id": 2,
+			"type": "tank_small",
+			"health": 3,
+			"owner": 2,
+			"pos": {
+				"x": 49,
+				"y": 49
+			}
+		}
+	]
+}
