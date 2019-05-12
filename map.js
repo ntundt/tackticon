@@ -1,12 +1,15 @@
 var fs = require("fs");
+
 var Node = require("./node.js");
 
+var consts = require("./enum.js");
+
 module.exports = class GameMap {
-	constructor(map) {
+	constructor(options) {
 		this.map_object = [];
-		if (typeof map == 'string') {
-			this.loadMap(map);
-		} else {
+		if (typeof options.mapName == 'string') {
+			this.loadMap(mapName);
+		} else if (options.mapName == consts.MAP_RANDOM) {
 			this.randomMap();
 		}
 	}
@@ -53,18 +56,20 @@ module.exports = class GameMap {
 		if (this.nodeExists(x+1, y-1)) list.push({ node: this.getNode(x+1, y-1), costMultiplier: Math.SQRT2 });
 		if (this.nodeExists(x+1, y)) list.push({ node: this.getNode(x+1, y), costMultiplier: 1 });
 		if (this.nodeExists(x+1, y+1)) list.push({ node: this.getNode(x+1, y+1), costMultiplier: Math.SQRT2 });
-
 		return list;
-		// return [
-		// 	{ node: this.getNode(x-1, y-1), costMultiplier: Math.SQRT2 },
-		// 	{ node: this.getNode(x-1, y), costMultiplier: 1 },
-		// 	{ node: this.getNode(x-1, y+1), costMultiplier: Math.SQRT2 },
-		// 	{ node: this.getNode(x, y-1), costMultiplier: 1 },
-		// 	{ node: this.getNode(x, y+1), costMultiplier: 1 },
-		// 	{ node: this.getNode(x+1, y-1), costMultiplier: Math.SQRT2 },
-		// 	{ node: this.getNode(x+1, y), costMultiplier: 1 },
-		// 	{ node: this.getNode(x+1, y+1), costMultiplier: Math.SQRT2 }
-		// ];
+	}
+	terrainToString() {
+		var result = "";
+		for (let x = 0; x < this.terrain.length; x++) {
+			for (let y = 0; y < this.terrain[x].length; y++) {
+				result += this.terrain[x][y];
+			}
+			result += "\n";
+		}
+		return result;
+	}
+	saveItself(name, callback) {
+		fs.writeFile("maps/" + name, this.terrainToString(), 'utf8', callback);
 	}
 	getPreview() {
 
