@@ -1,5 +1,6 @@
 var http = require("http");
 var fs = require("fs");
+
 var Node = require("./node.js");
 var Unit = require("./unit.js");
 var GameMap = require("./map.js");
@@ -12,11 +13,15 @@ var consts = require("./enum.js");
 var utils = require("./utils.js");
 var logger = require("./logger.js");
 
+var config = JSON.parse(fs.readFileSync("./config/config.json"));
 
 var gamesListInstance = new GamesList();
 var API = new Api(gamesListInstance);
 
-gamesListInstance.startNewGame({mapOptions: "1.map"});
+gamesListInstance.startNewGame({
+	mapOptions: "1.map", 
+	config: "attack.json"
+});
 
 // setInterval(function() {
 // 	logger.log("Saving…");
@@ -41,7 +46,7 @@ http.createServer(function(request, response) {
 
 	// var astar = new AStar(gamesListInstance.list[0].map);
 	// astar.setStart(0,0);
-	// astar.setEnd(1,1);
+	// astar.setEnd(6,6);
 	// response.writeHead(200, {'Content-Type': 'text/plain'});
 	// response.end(astar.calculateMinimalCost().toString());
 }).listen(8081);
