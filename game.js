@@ -11,10 +11,10 @@ module.exports = class Game {
 		this.map = new GameMap(options.mapOptions);
 		this.players = new PlayersList();
 		this.units_list = new UnitsList();
-		this.loadConfig(options.config);
+		this.options = options;
 	}
-	loadConfig(configName) {
-		this.config = JSON.parse(fs.readFileSync("config/" + configName).toString());
+	getMap() {
+		return this.map.getStringifiedMap();
 	}
 	newPlayer() {
 		var player = this.players.newPlayer();
@@ -38,7 +38,8 @@ module.exports = class Game {
 	toJson() {
 		return JSON.stringify({
 			game_id: this.id,
-			players: this.getPlayers()
+			players: this.getPlayers(),
+			map: this.map.toJson()
 		});
 	}
 	getPlayersCount() {
