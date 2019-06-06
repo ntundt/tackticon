@@ -1,0 +1,31 @@
+{
+  "name": "stage_based_game",
+  "version": "0.0.12",
+  "description": "Game.",
+  "main": "main.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Hello, world!\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ntundt/tackticon.git"
+  },
+  "keywords": [
+    "game",
+    "stage",
+    "based",
+    "stage_based",
+    "tactikon"
+  ],
+  "author": "Mikita Tsikhanovich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ntundt/tackticon/issues"
+  },
+  "homepage": "https://github.com/ntundt/tackticon#readme"
+}
