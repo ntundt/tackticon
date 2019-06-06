@@ -4,20 +4,20 @@ module.exports = class PlayersList {
 	constructor() {
 		this.players = [];
 	}
-	newPlayer(nickname) {
-		var player = new Player();
+	newPlayer(access_token) {
+		let info = global.musthave.Users.getInfo(access_token);
+		let player = new Player(info);
 		this.players.push(player);
-		player.setNickname(nickname);
 		return player;
 	}
 	getPlayerById(id) {
-		for (var i = 0; i < this.players.length; i++) {
+		for (let i = 0; i < this.players.length; i++) {
 			if (this.players[i].id == id) return this.players[i];
 		} 
 	}
 	toJson() {
-		var object = [];
-		for (var i = 0; i < this.players.length; i++) {
+		let object = [];
+		for (let i = 0; i < this.players.length; i++) {
 			object.push(this.players[i].toJson());
 		}
 		return object;
