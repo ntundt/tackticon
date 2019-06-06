@@ -8,17 +8,28 @@ module.exports = class GameMap {
 	constructor(options) {
 		this.map_object = [];
 		if (typeof options.mapName == 'string') {
-			this.loadMap(mapName);
+			this.loadMap(options.mapName);
 		} else if (options.mapName == consts.MAP_RANDOM) {
 			this.randomMap();
 		}
+	}
+	getStringifiedMap() {
+		let stringifiedMap = "";
+		for (let i = 0; i < this.terrain.length; i++) {
+			for (let j = 0; j < this.terrain[i].length; j++) {
+				stringifiedMap += this.terrain[i][j].type;
+			}
+			if (i != this.terrain.length - 1) stringifiedMap += "\n";
+		}
+		return stringifiedMap;
 	}
 	loadMap(map) {
 		this.terrain = [];
 		this.cities = [];
 		this.units = [];
 
-		var stringifiedMap = fs.readFileSync("maps/" + map).toString();
+		var stringifiedMap = fs.readFileSync("maps/" + map + ".map").toString();
+		this.map_string = stringifiedMap;
 		stringifiedMap = stringifiedMap.split("\n");
 		
 		for (var i = 0; i < stringifiedMap.length; i++) {
@@ -46,15 +57,22 @@ module.exports = class GameMap {
 			return false;
 		}
 	}
+	toJson() {
+		return {
+			terrain: this.terrain,
+			x_size: this.getXSize(),
+			y_size: this.getYSize()
+		}
+	}
 	getAdjacentNodes(x, y) {
 		var list = [];
 		if (this.nodeExists(x-1, y-1)) list.push({ node: this.getNode(x-1, y-1), costMultiplier: Math.SQRT2 });
-		if (this.nodeExists(x-1, y)) list.push({ node: this.getNode(x-1, y), costMultiplier: 1 });
+		if (this.nodeExists(x-1, y  )) list.push({ node: this.getNode(x-1, y  ), costMultiplier: 1 });
 		if (this.nodeExists(x-1, y+1)) list.push({ node: this.getNode(x-1, y+1), costMultiplier: Math.SQRT2 });
-		if (this.nodeExists(x, y-1)) list.push({ node: this.getNode(x, y-1), costMultiplier: 1 });
-		if (this.nodeExists(x, y+1)) list.push({ node: this.getNode(x, y+1), costMultiplier: 1 });
+		if (this.nodeExists(x  , y-1)) list.push({ node: this.getNode(x  , y-1), costMultiplier: 1 });
+		if (this.nodeExists(x  , y+1)) list.push({ node: this.getNode(x  , y+1), costMultiplier: 1 });
 		if (this.nodeExists(x+1, y-1)) list.push({ node: this.getNode(x+1, y-1), costMultiplier: Math.SQRT2 });
-		if (this.nodeExists(x+1, y)) list.push({ node: this.getNode(x+1, y), costMultiplier: 1 });
+		if (this.nodeExists(x+1, y  )) list.push({ node: this.getNode(x+1, y  ), costMultiplier: 1 });
 		if (this.nodeExists(x+1, y+1)) list.push({ node: this.getNode(x+1, y+1), costMultiplier: Math.SQRT2 });
 		return list;
 	}
