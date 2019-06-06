@@ -1,8 +1,13 @@
 var requirations = {
-	connect: ['game'],
-	move: ['game', 'x', 'y', 'unit_id'],
-	newGame: ['game']
+	connect: ['auth', 'game'],
+	move: ['auth', 'game', 'x', 'y', 'unit_id'],
+	newGame: ['auth', 'game']
 }
+
+var errors = require("./errors.js");
+var ErrorsList = errors.ErrorsList;
+var APIError = errors.APIError;
+var APIMethods = require("./api_methods.js");
 
 module.exports = class API {
 	constructor(gamesList) {
@@ -10,7 +15,7 @@ module.exports = class API {
 	}
 	callMethod(method, options) {
 		var response = {};
-		var errors = [];
+		var errors = new ErrorsList();
 
 		var game = undefined;
 		if (options.game !== undefined) {
@@ -18,28 +23,12 @@ module.exports = class API {
 		}
 
 		if (!this.checkRequiredParameters(method, options)) {
-			errors.push({code: 100, description: "One of the required parameters was specified missing or invalid"})
+			errors.newError(100);
 		}
 
-		switch (method) {
-		case 'connect':
-			try {
-				response = game.connect(options.nick);
-			} catch (e) {
-				if (e.name == 'TypeError')
-					errors.push({code: 101, description: "Game with specified id is undefined"});
-				else
-					throw e;
-			}
-			break;
-		case 'newGame':
-			response = this.gamesList.startNewGame();
-			break;
-		default:
-			errors.push({code: 101, description: "Specified method is undefined"});
-			break;
-		}
-		return this.makeResponseObject(response, errors);
+		response = APIMethods[method.replace(".", "_")](options, errors);
+
+		return this.makeResponseObject(response, errors.toArray());
 	}
 	makeResponseObject(response=[], error=[]) {
 		var what_to_respond = {};
