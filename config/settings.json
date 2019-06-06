@@ -1,0 +1,7 @@
+{
+	"server_port": 8081,
+	"enable_autosave": false,
+	"autosave_interval": 10,
+	"enable_debug_messages": true,
+	"load_saved_games_on_startup": false
+}
